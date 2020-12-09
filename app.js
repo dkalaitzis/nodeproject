@@ -3,17 +3,48 @@ const expressLayouts = require('express-ejs-layouts');
 
 var db = require("./models");
 const PORT = process.env.PORT || 3000;
+
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+
 const app = express();
 
-db.sequelize.sync().then(function() {
-    app.listen(PORT, function(){
-        console.log("Listening on port %s", PORT);
-    })
-})
+// Passport config
+require('./config/passport')(passport);
+
+// db.sequelize.sync().then(function() {
+//     app.listen(PORT, function(){
+//         console.log("Listening on port %s", PORT);
+//     })
+// })
+app.listen(PORT, console.log(`Server started on ${PORT}`));
 
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}))
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global Vars
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 // Routes
 app.use('/', require('./routes/index'));
