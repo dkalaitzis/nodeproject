@@ -3,7 +3,12 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         email: DataTypes.STRING,
         password: DataTypes.STRING,
-        password2: DataTypes.STRING
     });
+    
+    User.associate = function(models) {
+        User.hasMany(models.Post, {
+            onDelete: "cascade"
+        });
+    };
     return User;
-}
+};

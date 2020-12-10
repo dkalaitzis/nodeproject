@@ -9,17 +9,36 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 
+// Sequelize
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('demo_node', 'root', 'root', {
+    host: 'localhost',
+    dialect: 'mysql',
+    operatorsAliases: 0,
+
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 1000
+    },
+});
+
+// Test DB
+sequelize.authenticate()
+    .then(() => console.log('Database connected...'))
+    .catch(err => console.log('Error: ' + err))
+
 const app = express();
 
 // Passport config
 require('./config/passport')(passport);
 
-// db.sequelize.sync().then(function() {
-//     app.listen(PORT, function(){
-//         console.log("Listening on port %s", PORT);
-//     })
-// })
-app.listen(PORT, console.log(`Server started on ${PORT}`));
+//db.sequelize.sync().then(function() {
+    app.listen(PORT, function(){
+        console.log("Listening on port %s", PORT);
+    })
+//})
 
 // EJS
 app.use(expressLayouts);
@@ -53,35 +72,4 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-// // Static Files
-// app.use(express.static('public'))
-// app.use('/css', express.static(__dirname + 'public/css'))
-// app.use('/js', express.static(__dirname + 'public/js'))
-// app.use('/img', express.static(__dirname + 'public/img'))
-
-// app.get('', (req, res) => {
-//     res.sendFile(__dirname + '/views/index.html')
-// })
-
-// // Set Views
-// app.set('views', './views')
-// app.set('view engine')
- 
-
-
-
+app.use('/posts', require('./routes/posts'));
