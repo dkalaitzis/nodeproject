@@ -5,6 +5,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 // Display All Posts
 router.get('/posts',  (req,res) => 
+    //ensureAuthenticated, (put this next to 'posts,)
     res.render('posts', {
         // name: req.user.name
     }));  
