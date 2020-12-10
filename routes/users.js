@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
+const db = require('../models');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
@@ -40,7 +40,8 @@ router.post('/register', (req, res) => {
         });
     } else {
         // Validation pass
-        User.findOne({ email: email})
+        db.User.findOne ({
+            where: { email: email}})
             .then(user => {
                 if(user) {
                     // User exists
@@ -52,13 +53,14 @@ router.post('/register', (req, res) => {
                         password,
                         password2
                     });
+                    console.log(user)
                 } else {
-                    const newUser = new User({
+                    const newUser = new db.User({
                         name,
                         email,
                         password
                     });
-
+                  console.log(newUser.password)
                     // Hash Password
                     bcrypt.genSalt(10, (err, salt) => 
                         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -66,13 +68,13 @@ router.post('/register', (req, res) => {
                             // Set password to hash
                             newUser.password = hash;
                             //Save user
-                            newUser.save()
+                            db.User.create({name: newUser.name, email: newUser.email, password: newUser.password})
                                 .then(user => {
                                     // Flash to send a message on redirect
                                     req.flash('success_msg', 'You are now registered and can log in');
                                     res.redirect('/users/login');
-                                })
-                                .cath(err => console.log(err));
+                                }).catch(err => console.log(err))
+                                
                     }))
                 }
             });
@@ -88,6 +90,7 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+
 // Logout Handle
 router.get('/logout', (req, res) => {
     req.logout();
@@ -97,4 +100,3 @@ router.get('/logout', (req, res) => {
 
 
 module.exports = router;
-

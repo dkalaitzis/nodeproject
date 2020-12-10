@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Posts
+          </div>
+          <div class="card-body">
+        
+        <% posts.forEach(function(post) { %>
+            <p> <%= post.content %> </p>
+            <small class="text-muted"> <%= post. %> </small>
+            <hr>
+        <% }); &>       
+    
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Leave a Review</button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">New Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Modal Body -->
+                  <form action="{{ route('review.create', ['slug'=>$car->slug]) }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                      <div class="md-form">  
+                      <textarea id="post" name="post" class="form-control md-textarea" length="250" rows="3" placeholder="Type your text"></textarea>
+                      </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div>
+  </div>

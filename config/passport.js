@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 // db.sequelize.sync() ?
 const bcrypt = require('bcryptjs');
+const db = require('../models');
 
 // Load User Model
 const User = require('../models/User');
@@ -9,13 +10,14 @@ module.exports = function(passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email'}, (email, password, done) => {
             // Match email with user in db
-            User.findOne({ email: email })
+            db.User.findOne ({
+                where: { email: email}})
                 .then(user => {
                     // No match for this email
                     if(!user) {
                         return done(null, false, { message: 'That email is not registered'});
                     }
-
+                    
                     // Match inputted password and hashed user.password in the db
                     bcrypt.compare(password, user.password, (err, isMatch) => {
                         if(err) throw err;
@@ -37,7 +39,7 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser((id, done) => {
-        User.findById(id, (err, user) => {
+        db.User.findByPk(id, (err, user) => {
             done,(err, user);
         });
     });
