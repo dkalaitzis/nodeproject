@@ -17,7 +17,7 @@ router.get('/posts',  (req,res) =>
             // console.log(posts);
             // res.sendStatus(200);
         })
-        .cath(err => console.log(err));
+        .catch(err => console.log(err));
 
 // Create Post
 router.post('/posts', (req, res) => {
