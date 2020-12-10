@@ -10,12 +10,12 @@
         
         <% posts.forEach(function(post) { %>
             <p> <%= post.content %> </p>
-            <small class="text-muted"> <%= post. %> </small>
+            <small class="text-muted"> <%= post.user.name %> </small>
             <hr>
         <% }); &>       
     
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Leave a Review</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">New Post</button>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -27,8 +27,7 @@
                     </button>
                   </div>
                   <!-- Modal Body -->
-                  <form action="{{ route('review.create', ['slug'=>$car->slug]) }}" method="post">
-                    @csrf
+                  <form action="/posts" method="post">
                     <div class="modal-body">
                       <div class="md-form">  
                       <textarea id="post" name="post" class="form-control md-textarea" length="250" rows="3" placeholder="Type your text"></textarea>

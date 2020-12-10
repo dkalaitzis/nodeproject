@@ -11,23 +11,23 @@ const passport = require('passport');
 
 // Sequelize
 const Sequelize = require('sequelize');
-// const sequelize = new Sequelize('project_test', 'root', 'root', {
-//     host: 'localhost',
-//     dialect: 'mysql',
-//     operatorsAliases: 0,
+const sequelize = new Sequelize('demo_node', 'root', 'root', {
+    host: 'localhost',
+    dialect: 'mysql',
+    operatorsAliases: 0,
 
-//     pool: {
-//         max: 5,
-//         min: 0,
-//         acquire: 30000,
-//         idle: 1000
-//     },
-// });
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 1000
+    },
+});
 
 // Test DB
-// sequelize.authenticate()
-//     .then(() => console.log('Database connected...'))
-//     .catch(err => console.log('Error: ' + err))
+sequelize.authenticate()
+    .then(() => console.log('Database connected...'))
+    .catch(err => console.log('Error: ' + err))
 
 const app = express();
 
@@ -72,3 +72,4 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+app.use('/posts', require('./routes/posts'));

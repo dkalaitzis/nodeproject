@@ -15,6 +15,7 @@ router.post('/register', (req, res) => {
     const { name, email, password, password2} = req.body;
     let errors = [];
 
+    
     //Check required fields
     if(!name || !email || !password || !password2) {
         errors.push({ msg: 'Please fill in all fields'});
