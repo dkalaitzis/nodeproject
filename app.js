@@ -34,6 +34,7 @@ const app = express();
 // Passport config
 require('./config/passport')(passport);
 
+// Populate DB with models - uncomment the 2 comments
 //db.sequelize.sync().then(function() {
     app.listen(PORT, function(){
         console.log("Listening on port %s", PORT);
@@ -72,4 +73,4 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-app.use('/posts', require('./routes/posts'));
+app.use('/home', require('./routes/posts'));

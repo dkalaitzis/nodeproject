@@ -15,7 +15,6 @@ router.post('/register', (req, res) => {
     const { name, email, password, password2} = req.body;
     let errors = [];
 
-    
     //Check required fields
     if(!name || !email || !password || !password2) {
         errors.push({ msg: 'Please fill in all fields'});
@@ -74,8 +73,7 @@ router.post('/register', (req, res) => {
                                     // Flash to send a message on redirect
                                     req.flash('success_msg', 'You are now registered and can log in');
                                     res.redirect('/users/login');
-                                }).catch(err => console.log(err))
-                                
+                                }).catch(err => console.log(err))            
                     }))
                 }
             });
@@ -87,10 +85,9 @@ router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/dashboard',
         failureRedirect:  '/users/login',
-        failureFlash: true
+        failureFlash: 'Invalid username or password'
     })(req, res, next);
 });
-
 
 // Logout Handle
 router.get('/logout', (req, res) => {
@@ -98,6 +95,5 @@ router.get('/logout', (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/users/login');
 });
-
 
 module.exports = router;
