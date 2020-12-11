@@ -53,7 +53,7 @@ router.post('/register', (req, res) => {
                         password,
                         password2
                     });
-                    console.log(user)
+                    // console.log(user)
                 } else {
                     const newUser = new db.User({
                         name,
@@ -83,7 +83,7 @@ router.post('/register', (req, res) => {
 // Login Handle
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/dashboard',
+        successRedirect: '/home/posts',
         failureRedirect:  '/users/login',
         failureFlash: 'Invalid username or password'
     })(req, res, next);
