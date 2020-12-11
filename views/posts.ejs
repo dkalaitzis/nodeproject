@@ -3,7 +3,7 @@
       <div class="col-lg-10">
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
-            <h1>Welcome Dim </h1>
+            <h1>Welcome dim </h1>
             <a href="/users/logout" class="btn btn-secondary" >Logout</a>
           </div>
           <div class="card-body">
@@ -11,7 +11,7 @@
             <!-- for each post display post -->
             <% posts.forEach(function(post) { %>
               <p> <%= post.content %></p>
-              <small class="text-muted"> <%= post.user.name %></small>
+              <small class="text-muted"> <%= post.User.name %></small>
               <hr>
             <% }); %>
             
