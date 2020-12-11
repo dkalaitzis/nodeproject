@@ -53,7 +53,7 @@ router.post('/register', (req, res) => {
                         password,
                         password2
                     });
-                    console.log(user)
+                    // console.log(user)
                 } else {
                     const newUser = new db.User({
                         name,
