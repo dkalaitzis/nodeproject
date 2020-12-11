@@ -60,7 +60,6 @@ router.post('/register', (req, res) => {
                         email,
                         password
                     });
-                  console.log(newUser.password)
                     // Hash Password
                     bcrypt.genSalt(10, (err, salt) => 
                         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -88,6 +87,7 @@ router.post('/login', (req, res, next) => {
         failureFlash: 'Invalid username or password'
     })(req, res, next);
 });
+
 
 // Logout Handle
 router.get('/logout', (req, res) => {
