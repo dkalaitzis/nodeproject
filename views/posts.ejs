@@ -3,7 +3,7 @@
       <div class="col-lg-10">
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
-            <h1>Welcome dim </h1>
+            <h1>Welcome <%= user.name %> </h1>
             <a href="/users/logout" class="btn btn-secondary" >Logout</a>
           </div>
           <div class="card-body">
@@ -28,10 +28,10 @@
                     </button>
                   </div>
                   <!-- Modal Body -->
-                  <form action="/posts" method="post">
+                  <form action="/home/posts" method="post">
                     <div class="modal-body">
                       <div class="md-form">  
-                      <textarea id="post" name="post" class="form-control md-textarea" length="250" rows="3" placeholder="Type your text"></textarea>
+                      <textarea id="content" name="content" class="form-control md-textarea" length="250" rows="3" placeholder="Type your text"></textarea>
                       </div>
                     </div>
                     <!-- Modal Footer -->
