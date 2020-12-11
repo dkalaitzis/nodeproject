@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 
+
 // Sequelize
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('demo_node', 'root', 'root', {
@@ -74,3 +75,4 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/home', require('./routes/posts'));
+

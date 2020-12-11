@@ -7,7 +7,7 @@ const { ensureAuthenticated } = require('../config/auth');
 router.get('/posts',  (req,res) => 
     //ensureAuthenticated, (put this next to 'posts,)
     res.render('posts', {
-        // name: req.user.name
+        // name: req.user.name (Populate the page with posts)
     }));  
     db.Post.findAll()
         .then(post => {
@@ -16,7 +16,6 @@ router.get('/posts',  (req,res) =>
                 UserId
             });
             // console.log(posts);
-            // res.sendStatus(200);
         })
         .catch(err => console.log(err));
 
@@ -27,7 +26,7 @@ router.post('/posts', (req, res) => {
         content,
         UserId
     });
-    db.User.create({content: newPost.content, UserId: newPost.UserId})
+    db.Post.create({content: newPost.content, UserId: newPost.req.user.id})
     .then(user => {
         req.flash('success_msg', 'Great Successful Post!!');
         res.redirect('/home/posts');
