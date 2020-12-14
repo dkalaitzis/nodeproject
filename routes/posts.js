@@ -6,10 +6,10 @@ const { ensureAuthenticated } = require('../config/auth');
 // Display All Posts
 router.get('/posts', ensureAuthenticated, (req,res) => {
     db.Post.findAll({include: db.User})
-        .then(posts => {     
+        .then(posts => {  
             res.render('posts', {
                 posts,
-                user:req.user              
+                user: req.user             
             });
         })
         .catch(err => console.log(err));
@@ -18,14 +18,17 @@ router.get('/posts', ensureAuthenticated, (req,res) => {
 // Create Post
 router.post('/posts', ensureAuthenticated, (req, res) => {
     const { content, user } = req.body;
+    console.log(req.body)
+    console.log(req.user.dataValues.id)
     // Insert into table
     const newPost = new db.Post({
         content,
-        User:req.user
+        UserId: req.user.dataValues.id
     });
-    db.User.create({content: newPost.content })
-    console.log(newPost)
-    newPost.save()
+    console.log(newPost.dataValues)
+    db.Post.create(newPost.dataValues)
+    
+    // newPost.save()
     .then(value => {
         req.flash('success_msg', 'Great Successful Post!!');
         res.redirect('/home/posts');
